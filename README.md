@@ -7,6 +7,49 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## API-Only Docker Quickstart
+
+### 1. Start the stack
+
+```bash
+docker compose up -d --build
+docker compose ps
+```
+
+Services:
+
+- API app: http://localhost:8001
+- MySQL: localhost:3308
+- phpMyAdmin: http://localhost:8081
+
+### 2. Rebuild schema and seed data
+
+```bash
+docker compose exec -T app php artisan migrate:fresh --seed --force
+```
+
+### 3. Seeded admin credentials
+
+- Email: admin@example.com
+- Password: password
+
+These default values come from `DatabaseSeeder` and can be overridden with environment variables:
+
+- ADMIN_EMAIL
+- ADMIN_NAME
+- ADMIN_PASSWORD
+
+### 4. Quick API smoke test
+
+```bash
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8001/up
+
+curl -s -X POST http://localhost:8001/api/auth/login \
+	-H "Accept: application/json" \
+	-H "Content-Type: application/json" \
+	-d '{"email":"admin@example.com","password":"password"}'
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
