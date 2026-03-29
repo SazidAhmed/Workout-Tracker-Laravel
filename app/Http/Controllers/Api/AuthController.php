@@ -154,9 +154,9 @@ class AuthController extends Controller
             $user->markEmailAsVerified();
         }
 
-        $frontendUrl = rtrim((string) config('app.frontend_url', config('app.url')), '/');
-
-        return redirect()->away($frontendUrl.'/auth/verified?status=success');
+        return response()->json([
+            'message' => 'Email verified successfully.',
+        ]);
     }
 
     private function serializeUser(User $user): array

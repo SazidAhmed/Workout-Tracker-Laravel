@@ -70,7 +70,8 @@ class AuthFlowTest extends TestCase
 
         $verificationResponse = $this->get($verificationUrl);
 
-        $verificationResponse->assertRedirect(config('app.frontend_url').'/auth/verified?status=success');
+        $verificationResponse->assertOk()
+            ->assertJsonPath('message', 'Email verified successfully.');
         $this->assertNotNull($user->fresh()->email_verified_at);
     }
 }
