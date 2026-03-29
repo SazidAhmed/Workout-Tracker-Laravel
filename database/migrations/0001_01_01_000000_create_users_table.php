@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(0);
             $table->boolean('is_admin')->default(0);
             $table->boolean('is_trashed')->default(0);
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });
